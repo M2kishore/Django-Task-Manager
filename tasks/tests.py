@@ -33,6 +33,44 @@ class QuestionModelTests(TestCase):
         # Since we are authenticated we get a 200 response
         self.assertEqual(response.status_code, 200)
 
+    def test_add_task(self):
+        self.login(USER_NAME, USER_PASSWORD)
+        response = self.add_task(title="title")
+        self.assertEqual(response.status_code, 200)
+        # self.assertEqual(response.url, "/tasks")
+
+        response = self.client.get("/tasks/")
+        self.assertEqual(
+            set(response.context["object_list"]),
+            set(Task.objects.filter(user=self.user, completed=False, deleted=False)),
+        )
+
+        self.logout()
+
     def test_celery(self):
         celery_response = every_30_seconds()
         self.assertEqual(celery_response, True)
+
+    # helper functions
+
+    def login(self, username, password):
+        response = self.client.post(
+            "/user/login/", {"username": username, "password": password}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/tasks")
+
+    def logout(self):
+        response = self.client.get("/user/logout/")
+        self.assertEqual(response.url, "/")
+        self.assertEqual(response.status_code, 302)
+
+    def add_task(self, title):
+        return self.client.post(
+            "/create-task/",
+            {
+                "title": title,
+                "description": "Dummy description",
+                "completed": False,
+            },
+        )
