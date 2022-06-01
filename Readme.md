@@ -1,13 +1,25 @@
-This milestone requires you to build tests for all the views ( Both Server-side rendered and API Based ) and ensure that the coverage is greater than 90%
+# Django Task Manager
+A simple app managemnet app using Django(Python)
 
-The tasks created with celery should also be tested. To test a celery task, simply call the function in the test and ensure that the required functionality was handled, bounty points for testing edge cases.
+## Objective
+- to understand how handy django is to create a MVP of a large scale project to give the customer a glimpse of what he/she can expect. Which results in saving a lot of development time.
+- Get to know how to use the admin previlages to manage the application
+- Use in-built authentication, generic-view and generic-functions
+- Use libraries like django-rest-framework, filtering libraries.
+- Test the application for bugs and rectify them
+- Deploy the application in heroku using Procfile and make the application production ready.
 
-## Boilerplate code
+## Outcome
+- Created a Task-management application with basic authentication
+- Create an application that is production level shippable.
 
-This [zip file](https://bit.ly/gdc-django-level-9) contains a boilerplate Django project along with GitHub actions that will automatically report the coverage. You can use this as a starting point for your project.
+## To run the app in development
+### prerequisites
+- install python version 3
+- install pip package manager for python
+### install dependencies
+`pip install -r requirements.txt`
+### run development server
+`python manage.py runserver`
 
-## Submission
-
-Once all the required features are implemented, push the code to a GitHub repository and submit the link to the repo.
-
-> When submitting the solution, ensure that you submit the whole project and not just the tests.
+head on to you browser and type http://localhost:3000/ in the search bar as the server serves in localhost:3000 by default
